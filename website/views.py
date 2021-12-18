@@ -1,5 +1,4 @@
 """ this file manages our different views """
-from pprint import pprint
 from flask import Blueprint, render_template, request
 import requests
 import json
@@ -40,9 +39,7 @@ def send_recipe():
 
         url = f"https://api.spoonacular.com/recipes/{food_id}/analyzedInstructions?apiKey={SPOONACULAR_KEY}"
         r = requests.get(url)
-
         steps = json.loads(r.text)[0]["steps"]
-        pprint(steps)
 
         return render_template("home.html", food_name=food_name, ingredient_data=ingredient_data, steps=steps)
     return render_template("home.html")
