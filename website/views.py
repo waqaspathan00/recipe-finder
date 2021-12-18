@@ -38,5 +38,11 @@ def send_recipe():
             amount = ingredient["amount"]["us"]
             ingredients.append([name, amount])
 
-        return render_template("home.html", food_name=food_name, ingredients=ingredients)
+        url = f"https://api.spoonacular.com/recipes/{food_id}/analyzedInstructions?apiKey={SPOONACULAR_KEY}"
+        r = requests.get(url)
+
+        steps = json.loads(r.text)[0]["steps"]
+        pprint(steps)
+
+        return render_template("home.html", food_name=food_name, ingredients=ingredients, steps=steps)
     return render_template("home.html")

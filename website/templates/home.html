@@ -13,10 +13,17 @@
     <h3>{{ food_name }}</h3>
 
     {% if ingredients %}
-        <h2>{{ food_name }}</h2>
         {% for ingredient in ingredients %}
             <div>
                 <h4>{{ ingredient }}</h4>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if steps %}
+        {% for step in steps %}
+            <div>
+                <h4>{{ step }}</h4>
             </div>
         {% endfor %}
     {% endif %}
