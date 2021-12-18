@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="main">
+{#        <h2>Name of app here</h2>#}
+        <form method="POST">
+            <div class="form-group">
+                <input type="text" class="form-control" id="food" name="food" placeholder="Name a food">
+            </div>
+        </form>
+    </div>
+
+    <h3>{{ food_name }}</h3>
+
+{% endblock %}
