@@ -44,5 +44,5 @@ def send_recipe():
         steps = json.loads(r.text)[0]["steps"]
         pprint(steps)
 
-        return render_template("home.html", food_name=food_name, ingredients=ingredients, steps=steps)
+        return render_template("home.html", food_name=food_name, ingredient_data=ingredient_data, steps=steps)
     return render_template("home.html")
