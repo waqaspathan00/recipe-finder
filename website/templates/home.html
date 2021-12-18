@@ -2,7 +2,6 @@
 
 {% block content %}
     <div class="main">
-{#        <h2>Name of app here</h2>#}
         <form method="POST">
             <div class="form-group">
                 <input type="text" class="form-control" id="food" name="food" placeholder="Name a food">
@@ -10,7 +9,7 @@
         </form>
     </div>
 
-    <h3>{{ food_name }}</h3>
+    <h2>{{ food_name }}</h2>
 
     {% if ingredient_data %}
         <h3>Ingredients</h3>
@@ -22,6 +21,7 @@
     {% endif %}
 
     {% if steps %}
+        <h3>Steps</h3>
         {% for step in steps %}
             <ul>
                 <li>{{ step["number"] }}. {{step["step"] }}</li>
