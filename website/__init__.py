@@ -1,7 +1,6 @@
 """ website package initializer  """
 
 from flask import Flask
-from os import environ
 
 def create_app():
     """ create a flask app  """
