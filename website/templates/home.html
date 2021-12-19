@@ -1,32 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="main">
+    <div class="flexbox-container">
         <form method="POST">
-            <div class="form-group">
-                <input type="text" class="form-control" id="food" name="food" placeholder="Name a food">
+            <div class="input-group mb-3">
+                <input id="food" name="food" class="form-control" placeholder="Name a food" aria-label="Name a food">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button">Submit</button>
+                </div>
             </div>
         </form>
     </div>
 
-    <h2>{{ food_name }}</h2>
+    <div class="flexbox-container">
+        <h2>{{ food_name }}</h2>
+    </div>
 
-    {% if ingredient_data %}
-        <h3>Ingredients</h3>
-        {% for ingredient in ingredient_data %}
-            <ul>
-                <li>{{ ingredient["name"] }} - {{ ingredient["amount"] }}</li>
-            </ul>
-        {% endfor %}
-    {% endif %}
+    <div class="flexbox-container">
+        <div class="flexbox-item">
+            {% if ingredient_data %}
+                <h3 class="title">Ingredients</h3>
+                {% for ingredient in ingredient_data %}
+                    <ul>
+                        <li>{{ ingredient["name"] }} - {{ ingredient["amount"] }}</li>
+                    </ul>
+                {% endfor %}
+            {% endif %}
+        </div>
 
-    {% if steps %}
-        <h3>Steps</h3>
-        {% for step in steps %}
-            <ul>
-                <li>{{ step["number"] }}. {{step["step"] }}</li>
-            </ul>
-        {% endfor %}
-    {% endif %}
+        <div class="flexbox-item">
+            {% if steps %}
+                <h3 class="title">Steps</h3>
+                {% for step in steps %}
+                    <ul>
+                        <li>{{ step["number"] }}. {{ step["step"] }}</li>
+                    </ul>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 
 {% endblock %}
