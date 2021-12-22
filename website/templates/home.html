@@ -18,11 +18,15 @@
 
     <div class="flexbox-container">
         <div class="flexbox-item">
-            {% if ingredient_data %}
+            {% if ingredients %}
                 <h3 class="title">Ingredients</h3>
-                {% for ingredient in ingredient_data %}
+                {% for ingredient in ingredients %}
                     <ul>
-                        <li>{{ ingredient["name"] }} - {{ ingredient["amount"] }}</li>
+                        {% if ingredient["unit"] %}
+                            <li>{{ ingredient["amount"] }} {{ ingredient["unit"] }} of {{ ingredient["name"] }}</li>
+                        {% else %}
+                            <li>{{ ingredient["amount"] | int}} {{ ingredient["name"] }}</li>
+                        {% endif %}
                     </ul>
                 {% endfor %}
             {% endif %}

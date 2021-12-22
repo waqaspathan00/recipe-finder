@@ -15,6 +15,14 @@ def home():
 @views.route("/", methods=["POST"])
 def send_recipe():
     if request.method == "POST":
+        """ 
+        when the user makes a request, locally store a list of all the results 
+        then if and when the user hits one of the arrow keys to see the next result
+            it will access the list of results and call data for them respectively as seen fit
+            
+        the initial POST request must return a list of all the results AND the ingredients and steps for the first result
+        """
+
         food = request.form.get("food")
 
         # get the name and id of a food relevant to what the user searched for
@@ -34,12 +42,13 @@ def send_recipe():
         ingredients = []
         for ingredient in ingredient_data:
             name = ingredient["name"]
-            amount = ingredient["amount"]["us"]
-            ingredients.append([name, amount])
+            amount = ingredient["amount"]["us"]["value"]
+            unit = ingredient["amount"]["us"]["unit"]
+            ingredients.append({"name": name, "amount": amount, "unit": unit})
 
         url = f"https://api.spoonacular.com/recipes/{food_id}/analyzedInstructions?apiKey={SPOONACULAR_KEY}"
         r = requests.get(url)
         steps = json.loads(r.text)[0]["steps"]
 
-        return render_template("home.html", food_name=food_name, ingredient_data=ingredient_data, steps=steps)
+        return render_template("home.html", food_name=food_name, ingredients=ingredients, steps=steps)
     return render_template("home.html")
