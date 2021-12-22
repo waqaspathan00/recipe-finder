@@ -14,6 +14,7 @@ def home():
 
 @views.route("/", methods=["POST"])
 def send_recipe():
+    """Get the recipe entered by the user and return ingredients and steps"""
     if request.method == "POST":
         food = request.form.get("food")
 
