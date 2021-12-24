@@ -17,31 +17,14 @@
     </div>
 
     <div class="flexbox-container">
-        <div class="flexbox-item">
-            {% if ingredients %}
-                <h3 class="title">Ingredients</h3>
-                {% for ingredient in ingredients %}
-                    <ul>
-                        {% if ingredient["unit"] %}
-                            <li>{{ ingredient["amount"] }} {{ ingredient["unit"] }} of {{ ingredient["name"] }}</li>
-                        {% else %}
-                            <li>{{ ingredient["amount"] | int }} {{ ingredient["name"] }}</li>
-                        {% endif %}
-                    </ul>
+        {% if foods %}
+            <h3 class="title">Foods</h3>
+            <ul>
+                {% for food in foods %}
+                    <li class="flexbox-item">{{ food["name"] }}</li>
                 {% endfor %}
-            {% endif %}
-        </div>
-
-        <div class="flexbox-item">
-            {% if steps %}
-                <h3 class="title">Steps</h3>
-                {% for step in steps %}
-                    <ul>
-                        <li>{{ step["number"] }}. {{ step["step"] }}</li>
-                    </ul>
-                {% endfor %}
-            {% endif %}
-        </div>
+            </ul>
+        {% endif %}
     </div>
 
 {% endblock %}
