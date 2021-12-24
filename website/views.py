@@ -10,6 +10,7 @@ def home():
     return render_template("home.html")
 
 @views.route("/", methods=["POST"])
-def send_recipe():
+def get_foods():
     """ POST request logic lies within RecipeController """
     return RecipeController.post()
+
