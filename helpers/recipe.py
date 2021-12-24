@@ -8,6 +8,21 @@ SPOONACULAR_KEY = "a8529c104d8749b4a19488d0fd654353"
 class RecipeHandler:
 
     @staticmethod
+    def get_foods(food):
+        """ get a list of all the returned foods with their names and ids """
+        url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}&query={food}&instructionsRequired=true"
+        r = requests.get(url)
+        food_data = json.loads(r.text)["results"]
+
+        foods = []
+        for row in food_data:
+            food_name = row["title"]
+            food_id = row["id"]
+            foods.append({"name": food_name, "id": food_id})
+
+        return foods
+
+    @staticmethod
     def get_ingredients(food_id):
         """ get the ingredient data for a given food using its id """
 
