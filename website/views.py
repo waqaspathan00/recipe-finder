@@ -7,9 +7,9 @@ views = Blueprint("views", __name__)
 @views.route("/")
 def home():
     """ the default path is to home.html """
-    # passing a variable named text to home.html
     return render_template("home.html")
 
 @views.route("/", methods=["POST"])
 def send_recipe():
+    """ POST request logic lies within RecipeController """
     return RecipeController.post()
