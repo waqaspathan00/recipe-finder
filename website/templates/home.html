@@ -14,13 +14,15 @@
         </form>
     </div>
 
+    <h3 class="title">Foods</h3>
+
     {# first 10 food results by name #}
     <div class="flexbox-container">
         {% if foods %}
-            <h3 class="title">Foods</h3>
             <ul>
                 {% for food in foods %}
                     <li class="flexbox-item">
+                        <img src="{{ food["image"] }}">
                         <a href="{{url_for('views.recipe', type=food)}}">
                             {{ food["name"] }}
                         </a>

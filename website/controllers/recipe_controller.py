@@ -3,8 +3,6 @@
 from flask import render_template, request, session
 from helpers.recipe import get_foods, get_ingredients, get_steps
 
-SPOONACULAR_KEY = "a8529c104d8749b4a19488d0fd654353"
-
 class RecipeController:
     """ handle get and post requests concerning food recipes on homepage """
 
@@ -33,10 +31,11 @@ class RecipeController:
         # get the data of the food clicked by user from session
         food = eval(request.args['type'])
         name = food["name"]
+        image = food["image"]
 
         # get ingredients for the first food
         ingredients = get_ingredients(food["id"])
 
         # get steps for the first food
         steps = get_steps(food["id"])
-        return render_template("recipe.html", name=name, ingredients=ingredients, steps=steps)
+        return render_template("recipe.html", name=name, image=image, ingredients=ingredients, steps=steps)
