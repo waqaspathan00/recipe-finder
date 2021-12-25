@@ -11,11 +11,14 @@ def get_foods(food):
     r = requests.get(url)
     food_data = json.loads(r.text)["results"]
 
+    print(food_data)
+
     foods = []
     for row in food_data:
         food_name = row["title"]
         food_id = row["id"]
-        foods.append({"name": food_name, "id": food_id})
+        food_image = row["image"]
+        foods.append({"name": food_name, "id": food_id, "image": food_image})
 
     return foods
 
