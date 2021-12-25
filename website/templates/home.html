@@ -21,7 +21,11 @@
             <h3 class="title">Foods</h3>
             <ul>
                 {% for food in foods %}
-                    <li class="flexbox-item">{{ food["name"] }}</li>
+                    <li class="flexbox-item">
+                        <a href="{{url_for('views.recipe', type=food)}}">
+                            {{ food["name"] }}
+                        </a>
+                    </li>
                 {% endfor %}
             </ul>
         {% endif %}
