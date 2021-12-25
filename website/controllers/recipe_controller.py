@@ -1,6 +1,6 @@
 """ controls post and get requests relating to recipes """
 
-from flask import render_template, request
+from flask import render_template, request, session
 from helpers.recipe import RecipeHandler
 
 SPOONACULAR_KEY = "a8529c104d8749b4a19488d0fd654353"
@@ -28,4 +28,15 @@ class RecipeController:
 
     @staticmethod
     def get():
-        pass
+        """ getting the ingredients and steps for a clicked food """
+
+        # get the data of the food clicked by user
+        food = eval(request.args['type'])
+        name = food["name"]
+
+        # get ingredients for the first food
+        ingredients = RecipeHandler.get_ingredients(food["id"])
+
+        # get steps for the first food
+        steps = RecipeHandler.get_steps(food["id"])
+        return render_template("recipe.html", name=name, ingredients=ingredients, steps=steps)
