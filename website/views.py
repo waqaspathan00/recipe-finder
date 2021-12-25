@@ -11,6 +11,10 @@ def home():
 
 @views.route("/", methods=["POST"])
 def get_foods():
-    """ POST request logic lies within RecipeController """
+    """ display the food results fors a user searched food """
     return RecipeController.post()
 
+@views.route("/recipe", methods=["GET"])
+def recipe():
+    """ display the ingredients and steps for a desired food """
+    return RecipeController.get()
