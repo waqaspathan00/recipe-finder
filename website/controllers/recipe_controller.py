@@ -1,37 +1,42 @@
 """ controls post and get requests relating to recipes """
 
-from flask import render_template, request
-from helpers.recipe import RecipeHandler
+from flask import render_template, request, session
+from helpers.recipe import get_foods, get_ingredients, get_steps
 
 SPOONACULAR_KEY = "a8529c104d8749b4a19488d0fd654353"
 
 class RecipeController:
+    """ handle get and post requests concerning food recipes on homepage """
 
     @staticmethod
     def post():
-        if request.method == "POST":
-            """ 
-            when the user submits a food name, create a list of all the related food names and ids 
-            
-            for right now we will only return data for the first food
-            """
+        """
+        when the user submits a food name, create a list of all the related food names and ids
 
+        for right now we will only return data for the first food
+        """
+        if request.method == "POST":
+            # get the food entered by user
             food = request.form.get("food")
 
-            #
-            foods = RecipeHandler.get_foods(food)
-            print(foods)
-            # Writer.write_line("website/data.csv", data)
+            # store food data in session for use by GET
+            foods = get_foods(food)
+            session["foods"] = foods
 
-            # get ingredients for the first food
-            ingredients = RecipeHandler.get_ingredients(foods[0]["id"])
-
-            # get steps for the first food
-            steps = RecipeHandler.get_steps(foods[0]["id"])
-
-            return render_template("home.html", first_food_name=foods[0]["name"], ingredients=ingredients, steps=steps)
+            return render_template("home.html", foods=foods)
         return render_template("home.html")
 
     @staticmethod
     def get():
-        pass
+        """ getting the ingredients and steps for a clicked food """
+
+        # get the data of the food clicked by user from session
+        food = eval(request.args['type'])
+        name = food["name"]
+
+        # get ingredients for the first food
+        ingredients = get_ingredients(food["id"])
+
+        # get steps for the first food
+        steps = get_steps(food["id"])
+        return render_template("recipe.html", name=name, ingredients=ingredients, steps=steps)

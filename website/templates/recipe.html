@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {# name of food #}
+    <div class="flexbox-container">
+        <h2>{{ name }}</h2>
+    </div>
+
+    <div class="flexbox-container">
+
+        {# all the ingredients for the food #}
+        <div class="flexbox-item">
+            {% if ingredients %}
+                <h3 class="title">Ingredients</h3>
+                {% for ingredient in ingredients %}
+                    <ul>
+                        {% if ingredient["unit"] %}
+                            <li>{{ ingredient["amount"] }} {{ ingredient["unit"] }} of {{ ingredient["name"] }}</li>
+                        {% else %}
+                            <li>{{ ingredient["amount"] | int }} {{ ingredient["name"] }}</li>
+                        {% endif %}
+                    </ul>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {# all the steps for the food #}
+        <div class="flexbox-item">
+            {% if steps %}
+                <h3 class="title">Steps</h3>
+                {% for step in steps %}
+                    <ul>
+                        <li>{{ step["number"] }}. {{ step["step"] }}</li>
+                    </ul>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
