@@ -19,15 +19,9 @@ class RecipeController:
             food = request.form.get("food")
 
             # get a list of all the food results for the user searched food
+            # store the foods in session for use by GET
             foods = RecipeHandler.get_foods(food)
-            print(foods)
-            # Writer.write_line("website/data.csv", data)
-
-            # # get ingredients for the first food
-            # ingredients = RecipeHandler.get_ingredients(foods[0]["id"])
-            #
-            # # get steps for the first food
-            # steps = RecipeHandler.get_steps(foods[0]["id"])
+            session["foods"] = foods
 
             return render_template("home.html", foods=foods)
         return render_template("home.html")
