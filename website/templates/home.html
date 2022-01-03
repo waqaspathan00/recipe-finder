@@ -2,19 +2,20 @@
 
 {% block content %}
 
+    <h2 class="title">Get the Ingredients and Steps of a desired food</h2>
+
     {# textbox for user to enter a food | SUBMIT BUTTON DOES NOT WORK #}
     <div class="flexbox-container">
         <form method="POST">
             <div class="input-group mb-3">
-                <input id="food" name="food" class="form-control" placeholder="Name a food" aria-label="Name a food">
+                <input id="food" name="food" class="form-control food-input" placeholder="Name a food"
+                       aria-label="Name a food">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="submit">Submit</button>
+                    <button class="btn btn-warning" type="submit">Submit</button>
                 </div>
             </div>
         </form>
     </div>
-
-    <h3 class="title">Foods</h3>
 
     {# first 10 food results by name #}
     <div class="flexbox-container">
@@ -22,10 +23,14 @@
             <ul>
                 {% for food in foods %}
                     <li class="flexbox-item">
-                        <img src="{{ food["image"] }}">
-                        <a href="{{url_for('views.recipe', type=food)}}">
-                            {{ food["name"] }}
-                        </a>
+                        <div>
+                            <img class="flexbox-subitem" src="{{ food["image"] }}" alt="image of {{ food["name"] }}">
+                        </div>
+                        <div>
+                            <a class="flexbox-subitem" href="{{ url_for('views.recipe', type=food) }}">
+                                {{ food["name"] }}
+                            </a>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>

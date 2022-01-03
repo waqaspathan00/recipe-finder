@@ -1,5 +1,10 @@
-body{
-    background-color: #F2F3F5;
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0.5),
+                       rgba(0, 0, 0, 0.5)), url("../images/cutting_board.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .flexbox-container{
@@ -8,13 +13,79 @@ body{
 }
 
 .flexbox-item{
-    width: 650px;
-    margin: 10px;
-    border: 3px solid #7fb4be;
-    background-color: #F0FFFF;
-    border-radius: 5%;
+    display: flex;
+    width: auto;
+    margin: 2em;
+    background-color: #F1E5AC;
+    border-radius: 2em;
+    overflow: hidden;
+    box-shadow: 0 5px 20px 1px;
+    transition: all .2s ease-in-out;
+    animation-name: fadeIn;
+    animation-duration: 500ms;
+}
+
+.flexbox-item a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    display: inline-block;
+    position: relative;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.flexbox-item a:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: goldenrod;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.flexbox-item:hover a:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.flexbox-item:hover{
+    transform: scale(1.1);
+}
+
+.flexbox-item:hover a{
+    color: black;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .title{
     text-align: center;
+    color: #D3D3D3;
+    margin-top: 1em;
+}
+
+.section-title{
+    color: black;
+}
+
+.ingredients{
+    flex: 1;
+    flex-direction: column;
+}
+
+.steps{
+    flex: 1;
+    flex-direction: column;
 }
