@@ -28,7 +28,7 @@ class Ingredient(dict):
 def get_foods(food):
     """ get a list of all the returned foods with their names and ids """
 
-    url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}&query={food}&instructionsRequired=true"
+    url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}&query={food}&instructionsRequired=true&number=100"
     r = requests.get(url)
     food_data = json.loads(r.text)["results"]
 
