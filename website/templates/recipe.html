@@ -3,20 +3,16 @@
 {% block content %}
 
     {# name of food #}
-    <div class="flexbox-container">
-        <h2>{{ name }}</h2>
-    </div>
+    <h2 class="title">{{ name }}</h2>
 
-    <div class="flexbox-container">
-        <img src="{{ image }}">
-    </div>
+    <img src="{{ image }}" alt="image of {{ name }}">
 
     <div class="flexbox-container">
 
         {# all the ingredients for the food #}
-        <div class="flexbox-item">
+        <div class="flexbox-item ingredients">
             {% if ingredients %}
-                <h3 class="title">Ingredients</h3>
+                <h3 class="section-title">Ingredients</h3>
                 {% for ingredient in ingredients %}
                     <ul>
                         {% if ingredient["unit"] %}
@@ -30,9 +26,9 @@
         </div>
 
         {# all the steps for the food #}
-        <div class="flexbox-item">
+        <div class="flexbox-item steps">
             {% if steps %}
-                <h3 class="title">Steps</h3>
+                <h3 class="section-title">Steps</h3>
                 {% for step in steps %}
                     <ul>
                         <li>{{ step["number"] }}. {{ step["step"] }}</li>
