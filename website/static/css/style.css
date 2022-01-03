@@ -75,3 +75,17 @@ body {
     color: #D3D3D3;
     margin-top: 1em;
 }
+
+.section-title{
+    color: black;
+}
+
+.ingredients{
+    flex: 1;
+    flex-direction: column;
+}
+
+.steps{
+    flex: 1;
+    flex-direction: column;
+}
