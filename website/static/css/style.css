@@ -9,33 +9,42 @@ body {
 
 .flexbox-container{
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.flexbox-item{
-    display: flex;
-    width: auto;
-    margin: 2em;
+.food-card{
+    /*flex: 1 0 21%;*/
+    width: 20%;
+    position: relative;
     background-color: #F1E5AC;
+    margin: 1em;
     border-radius: 2em;
     overflow: hidden;
     box-shadow: 0 5px 20px 1px;
     transition: all .2s ease-in-out;
     animation-name: fadeIn;
-    animation-duration: 500ms;
+    animation-duration: 1s;
 }
 
-.flexbox-item a {
+.food-card p {
+    /* link text will look like white text with shadow behind it */
     text-decoration: none;
-    color: black;
     font-weight: bold;
-    display: inline-block;
-    position: relative;
-    font-size: 18px;
+    font-size: 20px;
     text-transform: capitalize;
+    margin: 0.5em;
+
+    /* pin text to bottom right of card*/
+    bottom: 8px;
+    right: 16px;
+    color: white;
+    position: absolute;
+    text-shadow: #000 1px 0 10px;
+    text-align: right;
 }
 
-.flexbox-item a:after{
+.food-card p:after{
     content: '';
     position: absolute;
     width: 100%;
@@ -45,20 +54,16 @@ body {
     left: 0;
     background-color: goldenrod;
     transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
+    transition: transform 0.5s ease-out;
 }
 
-.flexbox-item:hover a:after {
+.food-card:hover p:after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
 
-.flexbox-item:hover{
+.food-card:hover{
     transform: scale(1.1);
-}
-
-.flexbox-item:hover a{
-    color: black;
 }
 
 @keyframes fadeIn {

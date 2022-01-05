@@ -20,20 +20,14 @@
     {# first 10 food results by name #}
     <div class="flexbox-container">
         {% if foods %}
-            <ul>
-                {% for food in foods %}
-                    <li class="flexbox-item">
-                        <div>
-                            <img class="flexbox-subitem" src="{{ food["image"] }}" alt="image of {{ food["name"] }}">
-                        </div>
-                        <div>
-                            <a class="flexbox-subitem" href="{{ url_for('views.recipe', type=food) }}">
-                                {{ food["name"] }}
-                            </a>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+            {% for food in foods %}
+                <li class="food-card">
+                    <a href="{{ url_for('views.recipe', type=food) }}">
+                        <img src="{{ food["image"] }}" alt="image of {{ food["name"] }}"/>
+                        <p class="bottom-right">{{ food["name"] }}</p>
+                    </a>
+                </li>
+            {% endfor %}
         {% endif %}
     </div>
 
