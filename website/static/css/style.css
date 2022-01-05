@@ -7,17 +7,21 @@ body {
     background-size: cover;
 }
 
+h2{
+    text-align: center;
+    color: #E9E9E9;
+    padding: 1em;
+}
+
 .flexbox-container{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .food-card{
-    /*flex: 1 0 21%;*/
     width: 20%;
     position: relative;
-    background-color: #F1E5AC;
     margin: 1em;
     border-radius: 2em;
     overflow: hidden;
@@ -75,22 +79,24 @@ body {
     }
 }
 
-.title{
-    text-align: center;
-    color: #D3D3D3;
-    margin-top: 1em;
+.recipe-card{
+    background-color: #F1E5AC;
+    width: 40%;
+    border-radius: 2em;
+    overflow: hidden;
+    box-shadow: 0 5px 20px 1px;
 }
 
-.section-title{
-    color: black;
+.recipe-card h3{
+    background: #808080;
+    padding: 0.5em;
+    color: #D5D5D5;
 }
 
-.ingredients{
-    flex: 1;
-    flex-direction: column;
-}
-
-.steps{
-    flex: 1;
-    flex-direction: column;
+.recipe-card h6{
+    padding: 0.5em;
+    margin: 1em;
+    border-bottom: goldenrod 2px solid;
+    animation-name: fadeIn;
+    animation-duration: 1s;
 }
