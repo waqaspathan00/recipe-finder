@@ -21,12 +21,12 @@
     <div class="flexbox-container">
         {% if foods %}
             {% for food in foods %}
-                <li class="food-card">
+                <div class="food-card">
                     <a href="{{ url_for('views.recipe', type=food) }}">
                         <img src="{{ food["image"] }}" alt="image of {{ food["name"] }}"/>
                         <p class="bottom-right">{{ food["name"] }}</p>
                     </a>
-                </li>
+                </div>
             {% endfor %}
         {% endif %}
     </div>
