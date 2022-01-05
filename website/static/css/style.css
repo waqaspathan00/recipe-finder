@@ -79,6 +79,7 @@ h2{
     }
 }
 
+/* general body of recipe card */
 .recipe-card{
     background-color: #F1E5AC;
     width: 40%;
@@ -87,12 +88,14 @@ h2{
     box-shadow: 0 5px 20px 1px;
 }
 
+/* title of card (ingredients or steps) */
 .recipe-card h3{
     background: #808080;
     padding: 0.5em;
     color: #D5D5D5;
 }
 
+/* list items on card */
 .recipe-card h6{
     padding: 0.5em;
     margin: 1em;
