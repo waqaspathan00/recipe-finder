@@ -20,9 +20,10 @@ h2{
 }
 
 .food-card{
-    width: 20%;
+    filter: brightness(80%);
+    width: 45%;
     position: relative;
-    margin: 1em;
+    margin: 0.5em;
     border-radius: 2em;
     overflow: hidden;
     box-shadow: 0 5px 20px 1px;
@@ -38,6 +39,7 @@ h2{
     font-size: 20px;
     text-transform: capitalize;
     margin: 0.5em;
+    transition: all .2s ease-in-out;
 
     /* pin text to bottom right of card*/
     bottom: 8px;
@@ -56,7 +58,6 @@ h2{
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: goldenrod;
     transform-origin: bottom right;
     transition: transform 0.5s ease-out;
 }
@@ -68,6 +69,12 @@ h2{
 
 .food-card:hover{
     transform: scale(1.1);
+    filter: brightness(1);
+}
+
+.food-card:hover p{
+    color: transparent;
+    text-shadow: none;
 }
 
 @keyframes fadeIn {
@@ -82,7 +89,8 @@ h2{
 /* general body of recipe card */
 .recipe-card{
     background-color: #F1E5AC;
-    width: 40%;
+    width: 100%;
+    margin: 1em;
     border-radius: 2em;
     overflow: hidden;
     box-shadow: 0 5px 20px 1px;
@@ -92,7 +100,8 @@ h2{
 .recipe-card h3{
     background: #808080;
     padding: 0.5em;
-    color: #D5D5D5;
+    /*color: #D5D5D5;*/
+    color:white;
 }
 
 /* list items on card */
@@ -102,4 +111,16 @@ h2{
     border-bottom: goldenrod 2px solid;
     animation-name: fadeIn;
     animation-duration: 1s;
+}
+
+/* when the screen is NOT mobile (DESKTOP)*/
+@media only screen and (min-width: 768px) {
+    .food-card{
+        width: 20%;
+        margin: 1em;
+    }
+
+    .recipe-card{
+        width: 40%;
+    }
 }
