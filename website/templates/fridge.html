@@ -16,4 +16,19 @@
         </form>
     </div>
 
+
+    {# first 10 food results by name #}
+    <div class="flexbox-container">
+        {% if foods %}
+            {% for food in foods %}
+                <div class="food-card">
+                    <a href="{{ url_for('views.recipe', type=food) }}">
+                        <img src="{{ food["image"] }}" alt="image of {{ food["name"] }}"/>
+                        <p class="bottom-right">{{ food["name"] }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
 {% endblock %}
