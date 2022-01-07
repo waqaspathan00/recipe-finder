@@ -4,13 +4,13 @@
 
     <div class="flexbox-container">
         <form method="POST">
-            <div class="input-group mb-3">
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Example textarea</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <div class="input-group-append">
+            <div id="ingredients-form" class="input-group mb-3">
+                <div class="input-group">
                     <button class="btn btn-warning" type="submit">Submit</button>
+                    <button class="btn btn-warning" type="button" onclick="addIngredientInput()">+</button>
+                </div>
+                <div class="input-group">
+                    <input name="ingredients[]" type="text" class="form-control" placeholder="Ingredient">
                 </div>
             </div>
         </form>
