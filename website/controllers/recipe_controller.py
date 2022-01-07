@@ -1,7 +1,7 @@
 """ controls post and get requests relating to recipes """
 
 from flask import render_template, request, session
-from helpers.recipe import get_foods_by_name, get_ingredients, get_steps
+from helpers.recipe import get_foods_by_name, get_ingredients, get_steps, get_foods_by_ingredients
 
 class RecipeController:
     """ handle get and post requests concerning food recipes on homepage """
@@ -26,6 +26,15 @@ class RecipeController:
 
     @staticmethod
     def post_ingredients():
+        if request.method == "POST":
+            # get the food entered by user
+            ingredients = request.form.getlist("ingredients[]")
+
+            # store food data in session for use by GET
+            foods = get_foods_by_ingredients(ingredients)
+            # session["foods"] = foods
+
+            return render_template("fridge.html", foods=foods)
         return render_template("fridge.html")
 
     @staticmethod

@@ -39,6 +39,23 @@ def get_foods_by_name(food):
 
     return foods
 
+def get_foods_by_ingredients(ingredients):
+    ingredient_str = ingredients[0]
+
+    for ingredient in ingredients[1:]:
+        ingredient_str += ",+" + ingredient
+
+    url = f"https://api.spoonacular.com/recipes/findByIngredients?apiKey={SPOONACULAR_KEY}&ingredients={ingredient_str}"
+    # url = f"https://api.spoonacular.com/recipes/findByIngredients?apiKey={SPOONACULAR_KEY}&ingredients=tomato,+garlic"
+    r = requests.get(url)
+    food_data = json.loads(r.text)
+
+    foods = []
+    for data_row in food_data:
+        foods.append(Food(data_row))
+
+    return foods
+
 def get_ingredients(food_id):
     """ get the ingredient data for a given food using its id """
 
