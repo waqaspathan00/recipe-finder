@@ -2,20 +2,20 @@
 
 {% block content %}
 
-    <h2 class="title">Get the Ingredients and Steps of a desired food</h2>
-
-    {# textbox for user to enter a food #}
     <div class="flexbox-container">
         <form method="POST">
-            <div class="input-group mb-3">
-                <input id="food" name="food" class="form-control food-input" placeholder="Name a food"
-                       aria-label="Name a food">
-                <div class="input-group-append">
+            <div id="ingredients-form" class="input-group mb-3">
+                <div class="input-group">
                     <button class="btn btn-warning" type="submit">Submit</button>
+                    <button class="btn btn-warning" type="button" onclick="addIngredientInput()">+</button>
+                </div>
+                <div class="input-group">
+                    <input name="ingredients[]" type="text" class="form-control" placeholder="Ingredient">
                 </div>
             </div>
         </form>
     </div>
+
 
     {# first 10 food results by name #}
     <div class="flexbox-container">

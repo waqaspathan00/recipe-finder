@@ -25,7 +25,7 @@ class Ingredient(dict):
 
         super(Ingredient, self).__init__(name=name, amount=amount, unit=unit)
 
-def get_foods(food):
+def get_foods_by_name(food):
     """ get a list of all the returned foods with their names and ids """
 
     url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}&query={food}&instructionsRequired=true&number=100"
@@ -33,6 +33,23 @@ def get_foods(food):
     food_data = json.loads(r.text)["results"]
 
     # create a list of Food objects, each one containing food id, name, and image
+    foods = []
+    for data_row in food_data:
+        foods.append(Food(data_row))
+
+    return foods
+
+def get_foods_by_ingredients(ingredients):
+    ingredient_str = ingredients[0]
+
+    for ingredient in ingredients[1:]:
+        ingredient_str += ",+" + ingredient
+
+    url = f"https://api.spoonacular.com/recipes/findByIngredients?apiKey={SPOONACULAR_KEY}&ingredients={ingredient_str}"
+    # url = f"https://api.spoonacular.com/recipes/findByIngredients?apiKey={SPOONACULAR_KEY}&ingredients=tomato,+garlic"
+    r = requests.get(url)
+    food_data = json.loads(r.text)
+
     foods = []
     for data_row in food_data:
         foods.append(Food(data_row))

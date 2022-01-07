@@ -1,13 +1,13 @@
 """ controls post and get requests relating to recipes """
 
 from flask import render_template, request, session
-from helpers.recipe import get_foods, get_ingredients, get_steps
+from helpers.recipe import get_foods_by_name, get_ingredients, get_steps, get_foods_by_ingredients
 
 class RecipeController:
     """ handle get and post requests concerning food recipes on homepage """
 
     @staticmethod
-    def post():
+    def post_name():
         """
         when the user submits a food name, create a list of all the related food names and ids
 
@@ -18,11 +18,24 @@ class RecipeController:
             food = request.form.get("food")
 
             # store food data in session for use by GET
-            foods = get_foods(food)
+            foods = get_foods_by_name(food)
             session["foods"] = foods
 
             return render_template("home.html", foods=foods)
         return render_template("home.html")
+
+    @staticmethod
+    def post_ingredients():
+        if request.method == "POST":
+            # get the food entered by user
+            ingredients = request.form.getlist("ingredients[]")
+
+            # store food data in session for use by GET
+            foods = get_foods_by_ingredients(ingredients)
+            # session["foods"] = foods
+
+            return render_template("fridge.html", foods=foods)
+        return render_template("fridge.html")
 
     @staticmethod
     def get():
