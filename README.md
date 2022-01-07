@@ -1,4 +1,7 @@
-# Inspiration
+Get food results based on 1 of 2 things:
+- name of a food
+- ingredients 
+
 As cooks there are two things that are most important to us when looking for something new to cook:
  - Ingredients 
  - Steps required to make
