@@ -25,7 +25,7 @@ class Ingredient(dict):
 
         super(Ingredient, self).__init__(name=name, amount=amount, unit=unit)
 
-def get_foods(food):
+def get_foods_by_name(food):
     """ get a list of all the returned foods with their names and ids """
 
     url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}&query={food}&instructionsRequired=true&number=100"

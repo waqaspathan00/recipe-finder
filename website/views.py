@@ -10,11 +10,12 @@ def home():
     return render_template("home.html")
 
 @views.route("/", methods=["POST"])
-def get_foods():
-    """ display the food results fors a user searched food """
+def get_foods_by_name():
+    """ display the food results for a user searched food """
     return RecipeController.post()
 
 @views.route("/recipe", methods=["GET"])
 def recipe():
     """ display the ingredients and steps for a desired food """
     return RecipeController.get()
+
