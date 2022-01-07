@@ -12,10 +12,14 @@ def home():
 @views.route("/", methods=["POST"])
 def get_foods_by_name():
     """ display the food results for a user searched food """
-    return RecipeController.post()
+    return RecipeController.post_name()
 
 @views.route("/recipe", methods=["GET"])
 def recipe():
     """ display the ingredients and steps for a desired food """
     return RecipeController.get()
 
+@views.route("/fridge", methods=["POST", "GET"])
+def get_foods_by_ingredients():
+    """ display the foods results for foods containing matching ingredients entered by user """
+    return RecipeController.post_ingredients()

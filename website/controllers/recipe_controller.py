@@ -7,7 +7,7 @@ class RecipeController:
     """ handle get and post requests concerning food recipes on homepage """
 
     @staticmethod
-    def post():
+    def post_name():
         """
         when the user submits a food name, create a list of all the related food names and ids
 
@@ -23,6 +23,10 @@ class RecipeController:
 
             return render_template("home.html", foods=foods)
         return render_template("home.html")
+
+    @staticmethod
+    def post_ingredients():
+        return render_template("fridge.html")
 
     @staticmethod
     def get():
