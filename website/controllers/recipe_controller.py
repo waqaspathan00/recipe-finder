@@ -1,7 +1,10 @@
 """ controls post and get requests relating to recipes """
 
-from flask import render_template, request, session
-from helpers.recipe import get_foods_by_name, get_ingredients, get_steps, get_foods_by_ingredients
+from flask import render_template, request, session, flash
+import requests, json
+from helpers.recipe import get_foods, get_ingredients, get_steps
+
+SPOONACULAR_KEY = "a8529c104d8749b4a19488d0fd654353"
 
 class RecipeController:
     """ handle get and post requests concerning food recipes on homepage """
@@ -17,8 +20,16 @@ class RecipeController:
             # get the food entered by user
             food = request.form.get("food")
 
+            url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}&query={food}&instructionsRequired=true&number=100"
+            r = requests.get(url)
+            if r.status_code == 402:
+                flash("Sorry, currently out of API calls. Try again later.", category="error")
+                return render_template("home.html")
+
+            food_data = json.loads(r.text)["results"]
+
             # store food data in session for use by GET
-            foods = get_foods_by_name(food)
+            foods = get_foods(food_data)
             session["foods"] = foods
 
             return render_template("home.html", foods=foods)
@@ -30,8 +41,20 @@ class RecipeController:
             # get the food entered by user
             ingredients = request.form.getlist("ingredients[]")
 
+            ingredient_str = ingredients[0]
+            for ingredient in ingredients[1:]:
+                ingredient_str += ",+" + ingredient
+
+            url = f"https://api.spoonacular.com/recipes/findByIngredients?apiKey={SPOONACULAR_KEY}&ingredients={ingredient_str}"
+            r = requests.get(url)
+            if r.status_code == 402:
+                flash("Sorry, currently out of API calls. Try again later.", category="error")
+                return render_template("home.html")
+
+            food_data = json.loads(r.text)
+
             # store food data in session for use by GET
-            foods = get_foods_by_ingredients(ingredients)
+            foods = get_foods(food_data)
             # session["foods"] = foods
 
             return render_template("fridge.html", foods=foods)
