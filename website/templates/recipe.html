@@ -17,12 +17,14 @@
             {% if ingredients %}
                 <h3>Ingredients</h3>
                 {% for ingredient in ingredients %}
-                    <input class="form-check-input" type="checkbox">
-                    {% if ingredient["unit"] %}
-                        <h6>{{ ingredient["amount"] }} {{ ingredient["unit"] }} of {{ ingredient["name"] }}</h6>
-                    {% else %}
-                        <h6>{{ ingredient["amount"] | int }} {{ ingredient["name"] }}</h6>
-                    {% endif %}
+                    <div class="card-row">
+                        <input class="form-check-input" type="checkbox">
+                        {% if ingredient["unit"] %}
+                            <h6>{{ ingredient["amount"] }} {{ ingredient["unit"] }} of {{ ingredient["name"] }}</h6>
+                        {% else %}
+                            <h6>{{ ingredient["amount"] | int }} {{ ingredient["name"] }}</h6>
+                        {% endif %}
+                    </div>
                 {% endfor %}
             {% endif %}
         </div>
@@ -32,7 +34,10 @@
             {% if steps %}
                 <h3>Steps</h3>
                 {% for step in steps %}
-                    <h6>{{ step["number"] }}. {{ step["step"] }}</h6>
+                    <div class="card-row">
+                        <input class="form-check-input" type="checkbox">
+                        <h6>{{ step["number"] }}. {{ step["step"] }}</h6>
+                    </div>
                 {% endfor %}
             {% endif %}
         </div>
