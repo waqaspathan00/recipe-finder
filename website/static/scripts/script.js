@@ -8,7 +8,7 @@ function addIngredientInput(){
     ingredientInput.className = "form-control"; // set the CSS class
     inputGroup.appendChild(ingredientInput)
 
-    const element = document.getElementById("ingredients-form");
+    const element = document.getElementById("ingredients-form-inputs");
     element.appendChild(inputGroup);
 }
 
