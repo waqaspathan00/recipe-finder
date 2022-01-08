@@ -113,6 +113,17 @@ h2{
     animation-duration: 1s;
 }
 
+#ingredients-form-buttons{
+    position: sticky;
+    display: flex;
+    justify-content: space-around;
+    margin: 1em;
+}
+
+#ingredients-form-inputs > *{
+    margin: 0.25em;
+}
+
 /* when the screen is NOT mobile (DESKTOP)*/
 @media only screen and (min-width: 768px) {
     .food-card{
