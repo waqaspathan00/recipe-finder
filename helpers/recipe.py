@@ -15,6 +15,12 @@ class Food(dict):
 
         super().__init__(self, id=id, name=name, image=image)
 
+    @classmethod
+    def create_foods(cls, food_data):
+        """ create a list of all food objects """
+
+        return [cls(data) for data in food_data]
+
 class Ingredient(dict):
     """ by inheriting from dict, Food objects become automatically serializable for JSON formatting """
 
@@ -26,33 +32,26 @@ class Ingredient(dict):
         super(Ingredient, self).__init__(name=name, amount=amount, unit=unit)
 
 def get_foods_by_name(food):
-    """ get a list of all the returned foods with their names and ids """
+    """ get a list of all the returned foods using user provided food name """
 
     url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}&query={food}&instructionsRequired=true&number=100"
     r = requests.get(url)
-    food_data = json.loads(r.text)["results"]
-
-    # create a list of Food objects, each one containing food id, name, and image
-    foods = []
-    for data_row in food_data:
-        foods.append(Food(data_row))
+    food_data = json.loads(r.text)["results"]  # convert response to readable dictionary
+    foods = Food.create_foods(food_data)
 
     return foods
 
 def get_foods_by_ingredients(ingredients):
-    ingredient_str = ingredients[0]
+    """ get a list of all the returned foods using a list of user provided ingredients """
 
+    ingredient_str = ingredients[0]
     for ingredient in ingredients[1:]:
         ingredient_str += ",+" + ingredient
 
     url = f"https://api.spoonacular.com/recipes/findByIngredients?apiKey={SPOONACULAR_KEY}&ingredients={ingredient_str}"
-    # url = f"https://api.spoonacular.com/recipes/findByIngredients?apiKey={SPOONACULAR_KEY}&ingredients=tomato,+garlic"
     r = requests.get(url)
     food_data = json.loads(r.text)
-
-    foods = []
-    for data_row in food_data:
-        foods.append(Food(data_row))
+    foods = Food.create_foods(food_data)
 
     return foods
 
