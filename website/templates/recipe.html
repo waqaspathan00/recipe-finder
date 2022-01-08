@@ -17,6 +17,7 @@
             {% if ingredients %}
                 <h3>Ingredients</h3>
                 {% for ingredient in ingredients %}
+                    <input class="form-check-input" type="checkbox">
                     {% if ingredient["unit"] %}
                         <h6>{{ ingredient["amount"] }} {{ ingredient["unit"] }} of {{ ingredient["name"] }}</h6>
                     {% else %}
