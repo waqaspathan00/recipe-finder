@@ -12,9 +12,10 @@ class RecipeController:
     @staticmethod
     def post_name():
         """
-        when the user submits a food name, create a list of all the related food names and ids
+        when the user submits a food name
+        create a list of all the related food names and ids
 
-        for right now we will only return data for the first food
+        :return: to home page with either nothing or the food results
         """
         if request.method == "POST":
             # get the food entered by user
@@ -22,11 +23,14 @@ class RecipeController:
 
             url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}&query={food}&instructionsRequired=true&number=100"
             r = requests.get(url)
-            if r.status_code == 402:
-                flash("Sorry, currently out of API calls. Try again later.", category="error")
+            if r.status_code == 402:  # 402 - payment required (to spoonacular for more API calls)
+                flash("Currently out of API calls. Try again later.", category="error")
                 return render_template("home.html")
 
             food_data = json.loads(r.text)["results"]
+            if not food_data:  # checking if food_data is empty
+                flash("No results found.", category="warning")
+                return render_template("home.html")
 
             # store food data in session for use by GET
             foods = get_foods(food_data)
@@ -37,6 +41,12 @@ class RecipeController:
 
     @staticmethod
     def post_ingredients():
+        """
+        when the user submits a list of ingredients
+        create a list of all the related foods that contain those ingredients
+
+        :return: to fridge page with either nothing or the food results
+        """
         if request.method == "POST":
             # get the food entered by user
             ingredients = request.form.getlist("ingredients[]")
@@ -49,13 +59,13 @@ class RecipeController:
             r = requests.get(url)
             if r.status_code == 402:
                 flash("Sorry, currently out of API calls. Try again later.", category="error")
-                return render_template("home.html")
+                return render_template("fridge.html")
 
             food_data = json.loads(r.text)
 
             # store food data in session for use by GET
             foods = get_foods(food_data)
-            # session["foods"] = foods
+            session["foods"] = foods
 
             return render_template("fridge.html", foods=foods)
         return render_template("fridge.html")
