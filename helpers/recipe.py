@@ -30,8 +30,9 @@ def create_objs(obj, data):
     """ create a list of desired objects """
     return [obj(row) for row in data]
 
-def get_foods(food_data):
-    return create_objs(Food, food_data)
+def get_foods(data):
+    """ get a list of food results using the data provided """
+    return create_objs(Food, data)
 
 def get_ingredients(food_id):
     """ get the ingredient data for a given food using its id """
