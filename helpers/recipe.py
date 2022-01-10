@@ -34,15 +34,10 @@ def get_foods(data):
     """ get a list of food results using the data provided """
     return create_objs(Food, data)
 
-def get_ingredients(food_id):
+def get_ingredients(data):
     """ get the ingredient data for a given food using its id """
-
-    url = f"https://api.spoonacular.com/recipes/{food_id}/ingredientWidget.json?apiKey={SPOONACULAR_KEY}"
-    r = requests.get(url)  # perform a get request on the url
-    ingredient_data = json.loads(r.text)["ingredients"]
-    ingredients = create_objs(Ingredient, ingredient_data)
-
-    return ingredients
+    print("from get_ingredients:", type(data), data)
+    return create_objs(Ingredient, data)
 
 def get_steps(food_id):
     """ get the steps/ instructions for a given food using its id """

@@ -80,7 +80,10 @@ class RecipeController:
         image = food["image"]
 
         # get ingredients for the first food
-        ingredients = get_ingredients(food["id"])
+        url = f"https://api.spoonacular.com/recipes/{food['id']}/ingredientWidget.json?apiKey={SPOONACULAR_KEY}"
+        r = requests.get(url)  # perform a get request on the url
+        data = json.loads(r.text)["ingredients"]
+        ingredients = get_ingredients(data)
 
         # get steps for the first food
         steps = get_steps(food["id"])
