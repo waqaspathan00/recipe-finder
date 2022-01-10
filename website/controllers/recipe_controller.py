@@ -15,7 +15,7 @@ class RecipeController:
         when the user submits a food name
         create a list of all the related food names and ids
 
-        :return: to home page with either nothing or the food results
+        :return: to index page with either nothing or the food results
         """
         if request.method == "POST":
             # get the food entered by user
@@ -25,19 +25,19 @@ class RecipeController:
             r = requests.get(url)
             if r.status_code == 402:  # 402 - payment required (to spoonacular for more API calls)
                 flash("Currently out of API calls. Try again later.", category="error")
-                return render_template("home.html")
+                return render_template("index.html")
 
             food_data = json.loads(r.text)["results"]
             if not food_data:  # checking if food_data is empty
                 flash("No results found.", category="warning")
-                return render_template("home.html")
+                return render_template("index.html")
 
             # store food data in session for use by GET
             foods = get_foods(food_data)
             session["foods"] = foods
 
-            return render_template("home.html", foods=foods)
-        return render_template("home.html")
+            return render_template("index.html", foods=foods)
+        return render_template("index.html")
 
     @staticmethod
     def post_ingredients():
