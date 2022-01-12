@@ -24,7 +24,7 @@ class Ingredient(dict):
         amount = data["amount"]["us"]["value"]
         unit = data["amount"]["us"]["unit"]
 
-        super(Ingredient, self).__init__(name=name, amount=amount, unit=unit)
+        super().__init__(self, name=name, amount=amount, unit=unit)
 
 def create_objs(obj, data):
     """ create a list of desired objects """
