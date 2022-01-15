@@ -1,53 +1,73 @@
 """ working with the spoonacular api to get food data """
-import json
-import requests
+from .models import Food, Ingredient, Step
 
 SPOONACULAR_KEY = "a8529c104d8749b4a19488d0fd654353"
-
-class Food(dict):
-    """ by inheriting from dict, Food objects become automatically serializable for JSON formatting """
-
-    def __init__(self, data):
-        """ create a serialized food object with desired fields """
-        id = data["id"]
-        name = data["title"]
-        image = data["image"]
-
-        super().__init__(self, id=id, name=name, image=image)
-
-
-class Ingredient(dict):
-    """ by inheriting from dict, Ingredient objects become automatically serializable for JSON formatting """
-
-    def __init__(self, data):
-        name = data["name"]
-        amount = data["amount"]["us"]["value"]
-        unit = data["amount"]["us"]["unit"]
-
-        super().__init__(self, name=name, amount=amount, unit=unit)
 
 def create_objs(obj, data):
     """ create a list of desired objects """
     return [obj(row) for row in data]
 
-def get_foods(food_data):
-    return create_objs(Food, food_data)
+def get_foods(data):
+    """
+    get a list of food results using the data provided
 
-def get_ingredients(food_id):
-    """ get the ingredient data for a given food using its id """
+    [
+        {
+            'id': 665769,
+            'title': 'Zucchini Pizza Boats',
+            'image': 'https://spoonacular.com/recipeImages/665769-312x231.jpg',
+        },
+        {
+            'id': 655847,
+            'title': 'Pesto Veggie Pizza',
+            'image': 'https://spoonacular.com/recipeImages/655847-312x231.jpg',
+        }
+    ]
+    """
+    print(data)
+    return create_objs(Food, data)
 
-    url = f"https://api.spoonacular.com/recipes/{food_id}/ingredientWidget.json?apiKey={SPOONACULAR_KEY}"
-    r = requests.get(url)  # perform a get request on the url
-    ingredient_data = json.loads(r.text)["ingredients"]
-    ingredients = create_objs(Ingredient, ingredient_data)
+def get_ingredients(data):
+    """
+    get the ingredient data for a given food using its id
 
-    return ingredients
+    EXAMPLE DATA
+    [
+        {
+            'name': 'olive oil',
+            'image': 'olive-oil.jpg',
+            'amount': {
+                'metric': {'value': 1.0, 'unit': 'serving'},
+                'us': {'value': 1.0, 'unit': 'serving'}
+            }
+        },
+        {
+            'name': 'sea salt',
+            'image': 'salt.jpg',
+            'amount': {
+                'metric': {'value': 1.0, 'unit': 'serving'},
+                'us': {'value': 1.0, 'unit': 'serving'}
+            }
+        }
+    ]
+    """
 
-def get_steps(food_id):
-    """ get the steps/ instructions for a given food using its id """
+    return create_objs(Ingredient, data)
 
-    url = f"https://api.spoonacular.com/recipes/{food_id}/analyzedInstructions?apiKey={SPOONACULAR_KEY}"
-    r = requests.get(url)  # perform a get request on the url
-    steps = json.loads(r.text)[0]["steps"]  # extract steps data from json
+def get_steps(data):
+    """
+    get the steps/ instructions for a given food using its id
 
-    return steps
+    EXAMPLE DATA
+    [
+        {
+            'number': 1,
+            'step': 'Put enough olive oil in the bottom of a pie pan to lightly coat the bottom of the pan.'
+        },
+        {
+            'number': 2,
+            'step': 'Sprinkle with sea salt.'
+        }
+    ]
+    """
+    return create_objs(Step, data)
