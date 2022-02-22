@@ -24,7 +24,6 @@ def get_foods(data):
         }
     ]
     """
-    print(data)
     return create_objs(Food, data)
 
 def get_ingredients(data):
