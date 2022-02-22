@@ -34,7 +34,7 @@ class RecipeController:
 
             # store food data in session for use by GET
             foods = get_foods(food_data)
-            session["foods"] = foods
+            # session["foods"] = foods
 
             return render_template("index.html", foods=foods)
         return render_template("index.html")
