@@ -1,8 +1,9 @@
 """ controls post and get requests relating to recipes """
 
+import json
+import requests
 from flask import render_template, request, session, flash
-import requests, json
-from helpers.recipe import get_foods, get_ingredients, get_steps
+from helpers.recipe import get_foods, get_ingredients, get_steps\
 
 SPOONACULAR_KEY = "a8529c104d8749b4a19488d0fd654353"
 
@@ -21,13 +22,16 @@ class RecipeController:
             # get the food entered by user
             food = request.form.get("food")
 
-            url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}&query={food}&instructionsRequired=true&number=100"
-            r = requests.get(url)
-            if r.status_code == 402:  # 402 - payment required (to spoonacular for more API calls)
+            url = f"https://api.spoonacular.com/recipes/complexSearch?apiKey={SPOONACULAR_KEY}" \
+                  f"&query={food}&instructionsRequired=true&number=100"
+            response = requests.get(url)
+
+            # 402 - payment required (to spoonacular for more API calls)
+            if response.status_code == 402:
                 flash("Currently out of API calls. Try again later.", category="error")
                 return render_template("index.html")
 
-            food_data = json.loads(r.text)["results"]
+            food_data = json.loads(response.text)["results"]
             if not food_data:  # checking if food_data is empty
                 flash("No results found.", category="warning")
                 return render_template("index.html")
@@ -55,13 +59,15 @@ class RecipeController:
             for ingredient in ingredients[1:]:
                 ingredient_str += ",+" + ingredient
 
-            url = f"https://api.spoonacular.com/recipes/findByIngredients?apiKey={SPOONACULAR_KEY}&ingredients={ingredient_str}"
-            r = requests.get(url)
-            if r.status_code == 402:
+            url = f"https://api.spoonacular.com/recipes/findByIngredients" \
+                  f"?apiKey={SPOONACULAR_KEY}&ingredients={ingredient_str}"
+
+            response = requests.get(url)
+            if response.status_code == 402:
                 flash("Sorry, currently out of API calls. Try again later.", category="error")
                 return render_template("fridge.html")
 
-            food_data = json.loads(r.text)
+            food_data = json.loads(response.text)
 
             # store food data in session for use by GET
             foods = get_foods(food_data)
@@ -75,20 +81,24 @@ class RecipeController:
         """ getting the ingredients and steps for a clicked food """
 
         # get the data of the food clicked by user from session
-        food = eval(request.args['type'])
+        # pylint: disable=W0123
+        food = eval(request.args["type"])
         name = food["name"]
         image = food["image"]
 
         # get ingredients for the food
-        url = f"https://api.spoonacular.com/recipes/{food['id']}/ingredientWidget.json?apiKey={SPOONACULAR_KEY}"
-        r = requests.get(url)  # perform a get request on the url
-        data = json.loads(r.text)["ingredients"]
+        url = f"https://api.spoonacular.com/recipes/{food['id']}/ingredientWidget.json" \
+              f"?apiKey={SPOONACULAR_KEY}"
+        response = requests.get(url)  # perform a get request on the url
+        data = json.loads(response.text)["ingredients"]
         ingredients = get_ingredients(data)
 
         # get steps for the food
-        url = f"https://api.spoonacular.com/recipes/{food['id']}/analyzedInstructions?apiKey={SPOONACULAR_KEY}"
-        r = requests.get(url)  # perform a get request on the url
-        data = json.loads(r.text)[0]["steps"]  # extract steps data from json
+        url = f"https://api.spoonacular.com/recipes/{food['id']}/analyzedInstructions" \
+              f"?apiKey={SPOONACULAR_KEY}"
+        response = requests.get(url)  # perform a get request on the url
+        data = json.loads(response.text)[0]["steps"]  # extract steps data from json
         steps = get_steps(data)
 
-        return render_template("recipe.html", name=name, image=image, ingredients=ingredients, steps=steps)
+        return render_template("recipe.html",
+                               name=name, image=image, ingredients=ingredients, steps=steps)
